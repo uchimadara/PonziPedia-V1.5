@@ -399,7 +399,7 @@ function ProfileComplete($firstname,$lastname,$phonenumber,$bankname,$accountnum
 
      
       }
-     if ($random) {
+ 
       $accountNum = rand(0000000000,9999999999);
     $user = DB::table('bank')->where('accountNum', $accountNum)->first();
     if ($user) {
@@ -430,7 +430,7 @@ function ProfileComplete($firstname,$lastname,$phonenumber,$bankname,$accountnum
   You have successfully update your account.
 </div>';
 redirect_to(App::url('account/index.php'));
-    }
+
 
     
 }

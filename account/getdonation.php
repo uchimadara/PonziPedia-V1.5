@@ -10,7 +10,8 @@ $settings = DB::table('settings')->where('id', 1)->first();
  if ($settings->activationFee ==1) {
 
     $ActivationFees = DB::table('activationFee')->where('sender_id', $user_id)->first();
-   if ($ActivationFees->payment_status =='pending' || $ActivationFees->payment_status =='waiting')
+    if ($ActivationFees) {
+         if ($ActivationFees->payment_status =='pending' || $ActivationFees->payment_status =='waiting')
   {
     $ActivationUser = DB::table('activationReceiver')->where('id', 1)->first();
     if ($ActivationUser->userid == $user_id) {}
@@ -19,6 +20,8 @@ $settings = DB::table('settings')->where('id', 1)->first();
     }
  
   }
+    }
+
 }
  ?>  
 

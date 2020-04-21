@@ -1,13 +1,20 @@
-<?php namespace Hazzard\Mail;
+<?php 
+
+namespace Hazzard\Mail;
 
 use Swift_Mailer;
+use InvalidArgumentException;
+use GuzzleHttp\Client as HttpClient;
 use Hazzard\Support\ServiceProvider;
 use Swift_SmtpTransport as SmtpTransport;
 use Swift_MailTransport as MailTransport;
+use Hazzard\Mail\Transport\MailgunTransport;
+use Hazzard\Mail\Transport\MandrillTransport;
+use Hazzard\Mail\Transport\SparkPostTransport;
 use Swift_SendmailTransport as SendmailTransport;
 
-class MailServiceProvider extends ServiceProvider {
-
+class MailServiceProvider extends ServiceProvider 
+{
 	/**
 	 * Indicates if loading of the provider is deferred.
 	 *
@@ -46,62 +53,63 @@ class MailServiceProvider extends ServiceProvider {
 	 */
 	public function registerSwiftMailer()
 	{
-		$config = $this->app['config']['mail'];
-
-		$this->registerSwiftTransport($config);
-
-		$this->app['swift.mailer'] = new Swift_Mailer($this->app['swift.transport']);
+		$this->app['swift.mailer'] = new Swift_Mailer(
+			$this->createDriver($this->app['config']['mail'])
+		);
 	}
 
 	/**
-	 * Register the Swift Transport instance.
-	 *
+	 * Create a Swift Transport driver.
+	 * 
 	 * @param  array  $config
-	 * @return void
+	 * @return \Swift_Transport
 	 *
 	 * @throws \InvalidArgumentException
 	 */
-	protected function registerSwiftTransport($config)
+	protected function createDriver($config)
 	{
 		switch ($config['driver']) {
 			case 'smtp':
-				extract($config);
+				$transport = SmtpTransport::newInstance(
+					$config['host'], $config['port']
+				);
 
-				$transport = SmtpTransport::newInstance($host, $port);
-
-				if (isset($encryption)) {
-					$transport->setEncryption($encryption);
+				if (! empty($config['encryption'])) {
+					$transport->setEncryption($config['encryption']);
 				}
 
-				if (isset($username)) {
-					$transport->setUsername($username);
-					$transport->setPassword($password);
+				if (! empty($config['username'])) {
+					$transport->setUsername($config['username']);
+					$transport->setPassword($config['password']);
 				}
 
-				$this->app['swift.transport'] = $transport;
-			break;
-
-			case 'sendmail':
-				$this->app['swift.transport'] = SendmailTransport::newInstance($config['sendmail']);
-			break;
+				return $transport;
 
 			case 'mail':
-				$this->app['swift.transport'] = MailTransport::newInstance();
-			break;
+				return MailTransport::newInstance();
+
+			case 'sendmail':
+				return SendmailTransport::newInstance($config['sendmail']);
 
 			case 'mailgun':
-				$mailgun = $this->app['config']['services.mailgun'];
-				$this->app['swift.transport'] = new MailgunTransport($mailgun['secret'], $mailgun['domain']);
-			break;
+				$config = $this->app['config']['services.mailgun'];
+
+				return new MailgunTransport(
+					new HttpClient, $config['secret'], $config['domain']
+				);
 
 			case 'mandrill':
-				$mandrill = $this->app['config']['services.mandrill'];
-				$this->app['swift.transport'] = new MandrillTransport($mandrill['secret']);
-			break;
+				$config = $this->app['config']['services.mandrill'];
 
-			default:
-				throw new \InvalidArgumentException('Invalid mail driver.');
+				return new MandrillTransport(new HttpClient, $config['secret']);
+
+			case 'sparkpost': 
+				$config = $this->app['config']['services.sparkpost'];
+		        
+		        return new SparkPostTransport(new HttpClient, $config['secret']);
 		}
+		
+		throw new InvalidArgumentException('Invalid mail driver.');
 	}
 
 	/**
@@ -112,6 +120,5 @@ class MailServiceProvider extends ServiceProvider {
 	public function provides()
 	{
 		return array('mailer');
-	}
-	
+	}	
 }

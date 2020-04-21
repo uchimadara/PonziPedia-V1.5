@@ -3,10 +3,12 @@
 use DateTime;
 use Hazzard\Auth\Auth;
 use Hazzard\Mail\Mailer;
-use Hazzard\Support\Kses;
+use Hazzard\Formatting\Kses;
+use Hazzard\Formatting\Emoji;
 use Hazzard\Events\Dispatcher;
 use Hazzard\Support\MessageBag;
 use Hazzard\Validation\Factory;
+use Hazzard\Formatting\Clickable;
 
 class Comments {
 
@@ -706,7 +708,7 @@ class Comments {
 		}
 
 		if ($maxLinks = $this->config['max_links']) {
-			$numLinks = preg_match_all('/<a [^>]*href/i', make_clickable($comment), $out);
+			$numLinks = preg_match_all('/<a [^>]*href/i', Clickable::convert($comment), $out);
 			
 			if ($numLinks >= $maxLinks) {
 				$status = 0;
@@ -796,10 +798,10 @@ class Comments {
 	 */
 	public function formatComment($comment)
 	{
-		$comment = make_clickable($comment);
+		$comment = Clickable::convert($comment);
 		
 		if ($this->config['use_smilies']) {
-			$comment = convert_smilies($comment);
+			$comment = Emoji::convert($comment);
 		}
 
 		return $comment;

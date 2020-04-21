@@ -95,9 +95,17 @@ class Recaptcha {
 	 */
 	protected function sendRequestVerify(array $query = array())
 	{
-		$link = static::VERIFY_URL.'?'.http_build_query($query);
+		$ch = curl_init();
 
-		$response = file_get_contents($link);
+		curl_setopt_array($ch, [
+		    CURLOPT_URL => static::VERIFY_URL,
+		    CURLOPT_POST => true,
+		    CURLOPT_POSTFIELDS => $query,
+		    CURLOPT_RETURNTRANSFER => true
+		]);
+
+		$response = curl_exec($ch);
+		curl_close($ch);
 
 		return json_decode($response, true);
 	}

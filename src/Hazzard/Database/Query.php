@@ -768,6 +768,8 @@ class Query {
 			}
 
 			$result = (array) $result;
+		} else {
+			$result = array();
 		}
 
 		return count($result) > 0 ? reset($result) : null;

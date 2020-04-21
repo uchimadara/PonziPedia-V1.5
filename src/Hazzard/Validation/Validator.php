@@ -665,7 +665,7 @@ class Validator {
 		$this->requireParameterCount(1, $parameters, 'digits');
 
 		return $this->validateNumeric($attribute, $value)
-			&& strlen((string) $value) == $parameters[0];
+			&& mb_strlen((string) $value) == $parameters[0];
 	}
 
 	/**
@@ -779,9 +779,7 @@ class Validator {
 	 */
 	protected function getStringSize($value)
 	{
-		if (function_exists('mb_strlen')) return mb_strlen($value);
-
-		return strlen($value);
+		return mb_strlen($value);
 	}
 
 	/**

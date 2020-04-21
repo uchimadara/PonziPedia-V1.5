@@ -1,7 +1,9 @@
 <?php namespace Hazzard\Support;
 
+use RuntimeException;
+
 class Str {
-	
+
 	/**
 	 * Determine if a given string matches a given pattern.
 	 *
@@ -81,36 +83,42 @@ class Str {
 	/**
 	 * Generate a more truly "random" alpha-numeric string.
 	 *
-	 * @param  int     $length
+	 * @param  int  $length
 	 * @return string
-	 *
-	 * @throws \RuntimeException
 	 */
 	public static function random($length = 16)
 	{
-		if (function_exists('openssl_random_pseudo_bytes')) {
-			$bytes = openssl_random_pseudo_bytes($length * 2);
+	    $string = '';
 
-			if ($bytes === false) {
-				throw new \RuntimeException('Unable to generate random string.');
-			}
+	    while (($len = strlen($string)) < $length) {
+	        $size = $length - $len;
 
-			return substr(str_replace(array('/', '+', '='), '', base64_encode($bytes)), 0, $length);
-		}
+	        $bytes = random_bytes($size);
 
-		return static::quickRandom($length);
+	        $string .= substr(str_replace(array('/', '+', '='), '', base64_encode($bytes)), 0, $size);
+	    }
+
+	    return $string;
 	}
 
 	/**
 	 * Generate a "random" alpha-numeric string.
 	 *
-	 * @param  int     $length
+	 * Should not be considered sufficient for cryptography, etc.
+	 *
+	 * @deprecated since version 1.3. Use the "random" method directly.
+	 *
+	 * @param  int  $length
 	 * @return string
 	 */
 	public static function quickRandom($length = 16)
 	{
-		$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+	    if (PHP_MAJOR_VERSION > 5) {
+	        return static::random($length);
+	    }
 
-		return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
+	    $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+	    return substr(str_shuffle(str_repeat($pool, $length)), 0, $length);
 	}
 }

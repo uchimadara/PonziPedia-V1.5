@@ -93,7 +93,7 @@ class Register extends Manager {
 			$this->errors->add('error', $this->translator->trans('errors.dbsave'));
 			return false;
 		}
- 
+
 		if ($this->config['email_activation']) {
 			$reminder = str_random(32);
 

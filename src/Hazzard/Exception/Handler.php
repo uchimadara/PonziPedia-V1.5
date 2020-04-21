@@ -33,8 +33,7 @@ class Handler {
 	{
 		if ($this->debug) {
 			if ($this->isAjaxRequest()) {
-				$handler = new JsonResponseHandler;
-				$handler->onlyForAjaxRequests(true);
+				$handler = (new JsonResponseHandler)->addTraceToOutput(true);
 			} else {
 				$handler = new PrettyPageHandler;
 			}

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace Hazzard\Support;
 
@@ -866,11 +866,11 @@ class ImagePicker
 
         switch ($last) {
             case 'g':
-                $val *= 1024;
+                $val = (int) $val * 1024;
             case 'm':
-                $val *= 1024;
+                $val = (int) $val * 1024;
             case 'k':
-                $val *= 1024;
+                $val = (int) $val * 1024;
         }
 
         return $this->fixIntOverflow($val);

@@ -168,7 +168,7 @@ class Auth extends Manager {
 
 		$this->user = null;
 
-		$this->session->destroy();
+		$this->session->delete($this->getName());
 
 		try {
 			$this->cookie->delete($this->getName());

@@ -12,7 +12,10 @@ class EncryptionServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		$this->app->bindShared('encrypter', function($app) {
-			return new Encrypter($app['config']['app.key']);
+			return new Encrypter(
+				$app['config']['app.key'],
+				$app['config']['app.cipher'] ?: 'AES-256-CBC'
+			);
 		});
 	}
 }

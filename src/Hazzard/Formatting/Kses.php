@@ -1,4 +1,6 @@
-<?php namespace Hazzard\Support;
+<?php 
+
+namespace Hazzard\Formatting;
 
 /**
  * KSES by Ulf Harnhammar
@@ -8,8 +10,8 @@
  * https://github.com/WordPress/WordPress/blob/master/wp-includes/kses.php
  */
 
-class Kses {
-
+class Kses 
+{
 	/**
 	 * Allowed tags.
 	 * 
@@ -215,7 +217,7 @@ class Kses {
 						'codebase', 'data', 'usemap', 'longdesc', 'action');
 
 		// Loop through the whole attribute list.
-		while (strlen($attr) != 0) {
+		while (mb_strlen($attr) != 0) {
 			$working = 0;
 
 			switch ($mode) {
@@ -359,10 +361,10 @@ class Kses {
 	{
 		switch (strtolower($checkname)) {
 			case 'maxlen' :
-				if (strlen($value) > $checkvalue) return false;
+				if (mb_strlen($value) > $checkvalue) return false;
 
 			case 'minlen' :
-				if (strlen($value) < $checkvalue) return false;
+				if (mb_strlen($value) < $checkvalue) return false;
 
 			case 'maxval' :
 				if (!preg_match('/^\s{0,6}[0-9]{1,6}\s{0,6}$/', $value)) return false;
