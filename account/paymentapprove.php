@@ -18,49 +18,7 @@ $ValidPack = DB::table('packages')->where('id', $PackId)->first();
   $ProfileReceiver = DB::table('userdetails')->where('userid', $Validmaching->sender_id)->first();
   $userReceiver = DB::table('users')->where('id', $Validmaching->receiver_id)->first();
   $sender_userid = $Validmaching->sender_id;
-if (isset($_POST['submitTest'])) {
-  Session::set('Testimony', 'yes');
-  ?>
 
-  <script>window.location.href ='<?php echo Config::get('app.telegram'); ?>';</script>
-  <?php
-}
-
-$Testimony = Session::get('Testimony');
-if ($Testimony =="") {
-     if (isset($_GET['validation'])){ 
-   ?>
-
-<script type="text/javascript">
-    $(window).on('load',function(){
-        $('#myModal').modal('show');
-    });
-</script>
-
-
-<div id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" class="modal fade text-left show" style="padding-right: 15px; display: block;">
-                        <div role="document" class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h4 id="exampleModalLabel" class="modal-title">Payment Confirmed</h4>
-                             
-                            </div>
-                            <div class="modal-body">
-                              <p>You have successfully confirm your downline payment, before you left It has been made compulsory on all members to share their testimonial screenshot on <?php echo Config::get('app.name'); ?> telegram or our facebook otherwise, your recommittment balance would never ever be released, dropping your testimonial screenshot is free and cost nothing , it rather secures your investment and boost morale of other members <?php echo Config::get('app.name'); ?>. Join our official telegram page now and share your testimonial sceenshot for this new GH.</p>
-      
-                              
-                            </div>
-                            <div class="modal-footer">
-                              <form method="POST" action="">
-     <input type="submit" class="btn btn-primary" name="submitTest" value="Share Now!" />
-   </form>
-    </div>
-    </div>
-    </div>
-    </div>
-   <?php
-  }
-}
 ?>
 
  <div class="content-inner">
@@ -168,7 +126,7 @@ if ($Testimony =="") {
                 <div class="chart col-lg-6 col-12">
 
                   <?php 
-                  $CheckingMarching = DB::table('marching')->where('receiver_id', $user_id)->where('id', $user->id)->first(); 
+                    $CheckingMarching = DB::table('marching')->where('receiver_id', $user_id)->where('id', $user->id)->first(); 
                         $timeCreated = $CheckingMarching->expiringTime;
                         $timeNow = date('Y-m-d H:i:s');
 
@@ -177,84 +135,62 @@ if ($Testimony =="") {
                    echo '
                     <div class="card-body text-center" style="background-color: #218838; color: #fff;"><h3>Payment is still pending and waiting for sender to make payment</h3></div>';
                   }
-                   if ($CheckingMarching->payment_status == "waiting") {
+                   else if ($CheckingMarching->payment_status == "waiting") {
                    echo '
                     <div class="card-body text-center" style="background-color: #218838; color: #fff;"><h3>Please check below information and confirm user payment</h3></div>';
-                  }
-                   if ($CheckingMarching->payment_status == "pending" || $CheckingMarching->payment_status == "waiting") {
+               
                   ?>
-                  <div class="work-amount card">
+                             <div class="work-amount card">
                    
                     <div class="card-body" style="padding-left: 3px;padding-right: 0px;">
 
                     
-                    
-                  
+                 
                      <ul class="list-group list-group-unbordered">
-                      <?php if ($CheckingMarching->paymentMethod !="") {
-                       ?>
+                      <?php if (!empty($CheckingMarching->paymentMethod)): ?>
                    <li class="list-group-item">
                     Sender's Method: <a class="pull-right"><?php echo $CheckingMarching->paymentMethod;  ?></a>
                      </li>
-                       <?
-                      }
-                      ?>
-
-                       <?php if ($CheckingMarching->senderBank !="") {
-                       ?>
+                      <?php endif ?>
+                      
+                        <?php if (!empty($CheckingMarching->senderBank)): ?>
                    <li class="list-group-item">
                     Sender's Bank Bame: <a class="pull-right"><?php echo $CheckingMarching->senderBank;  ?></a>
                      </li>
-                       <?
-                      }
-                      ?>
+                       <?php endif ?>
 
-
-                       <?php if ($CheckingMarching->accountNumber !="") {
-                       ?>
+                         <?php if (!empty($CheckingMarching->accountNumber)): ?>
                    <li class="list-group-item">
                     Sender's Account Number: <a class="pull-right"><?php echo $CheckingMarching->accountNumber;  ?></a>
                      </li>
-                       <?
-                      }
-                      ?>
+                        <?php endif ?>
 
-                       <?php if ($CheckingMarching->AccountName !="") {
-                       ?>
+                         <?php if (!empty($CheckingMarching->AccountName)): ?>
                    <li class="list-group-item">
                     Sender's Account Name: <a class="pull-right"><?php echo $CheckingMarching->AccountName;  ?></a>
                      </li>
-                       <?
-                      }
-                      ?>
+                        <?php endif ?>
 
-                       <?php if ($CheckingMarching->depositorsName !="") {
-                       ?>
+                         <?php if (!empty($CheckingMarching->depositorsName)): ?>
                    <li class="list-group-item">
                     Sender's Depositor Name: <a class="pull-right"><?php echo $CheckingMarching->depositorsName;  ?></a>
                      </li>
-                       <?
-                      }
-                      ?>
+                        <?php endif ?>
 
-                       <?php if ($CheckingMarching->paymentLocation !="") {
-                       ?>
+                         <?php if (!empty($CheckingMarching->paymentLocation)): ?>
                    <li class="list-group-item">
                     Sender's Location: <a class="pull-right"><?php echo $CheckingMarching->paymentLocation;  ?></a>
                      </li>
-                       <?
-                      }
-                      ?>
+                        <?php endif ?>
 
-                      <?php if ($CheckingMarching->ProofPic !="") {
-                       ?>
+                         <?php if (!empty($CheckingMarching->ProofPic)): ?>
                    <li class="list-group-item">
                     <a href="<?php echo App::url(); ?>/images/<?php echo $CheckingMarching->ProofPic;  ?>" target="_BLANK" class="pull-right"><img src="<?php echo App::url(); ?>/images/<?php echo $CheckingMarching->ProofPic;  ?>" alt="<?php echo $CheckingMarching->ProofPic;  ?>" class="img-responsive" style="width: 90%;"></a>
                      </li>
-                       <?
-                      }
-                      ?>
+                        <?php endif ?>
                     </ul>
+
+
 
                     <form method="POST" action="">
                     <input type="hidden" name="id" value="<?php echo $CheckingMarching->id; ?>">
@@ -263,6 +199,7 @@ if ($Testimony =="") {
                             <input type="submit" name="confirmUser" value="Confirm Payment" class="btn btn-primary btn-lg btn-block" style="margin-bottom: 5px;">
                           </div>
                     </form>
+
                  <?php 
                $reported = DB::table('courtcase')->where('margin_id', $Validmaching->id)->first();
                   if ($reported) {
@@ -313,7 +250,10 @@ if ($Testimony =="") {
         
       </div>
       <?php } ?>
-    </div>
+    
+
+
+       </div>
   </div>
 
 </div>
@@ -321,6 +261,8 @@ if ($Testimony =="") {
              
              
               </div>
+
+
                     <?php
                   }
                  

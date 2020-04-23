@@ -1072,7 +1072,7 @@ function PaymentLogs($user_id){
        }
        echo '<tr>
                               <th scope="row">'.$row->id.'</th>
-                              <td>'.date("Y-m-d",strtotime($row->expiringTime)).'</td>
+                              <td>'.date("Y-m-d",strtotime($row->joined)).'</td>
                               <td>'.$settings->currency.' '.$row->amount.'</td>
                               <td>'.$sender->accountname.'</td>
                               <td>'.$receiver->accountname.'</td>
@@ -1109,7 +1109,7 @@ function ActivationLogs($user_id){
        }
        echo '<tr>
                               <th scope="row">'.$row->id.'</th>
-                              <td>'.date("Y-m-d",strtotime($row->expiringTime)).'</td>
+                              <td>'.date("Y-m-d",strtotime($row->joined)).'</td>
                               <td>'.$settings->currency.' '.$row->amount.'</td>
                               <td>'.$sender->accountname.'</td>
                               <td>'.$receiver->accountname.'</td>

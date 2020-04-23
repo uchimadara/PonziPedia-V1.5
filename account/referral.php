@@ -2,7 +2,7 @@
 
   $ProfileCh = DB::table('userdetails')->where('userid', $user_id)->first();
      if (is_null($ProfileCh)) redirect_to(App::url('account/account.php'));
-      
+    $settings = DB::table('settings')->where('id', 1)->first();  
  ?>
 
 <div class="content-inner">
@@ -42,7 +42,7 @@
                           <label class="form-control-label" style="color: #fff;">Your Referral Link</label>
                           <?php 
                           $user = DB::table('activationFee')->where('sender_id', $user_id)->where('payment_status', 'confirm')->first();
-                          if ($user) {
+                          if ($user || $settings->activationFee ==0) {
                             ?>
                             
                               <div class="input-group">

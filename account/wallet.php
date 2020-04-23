@@ -16,21 +16,18 @@
      <?php 
            if (isset($_POST['withdrawNow'])){
            $amount = preg_replace("/[^a-zA-Z0-9]+/", "", $_POST['amount']);
+           $amount = (int)$amount;
 
             $TheBalance = DB::table('bank')->where('userid', $user_id)->first();
-            if($amount == "0"){
-                 echo'<div class="alert alert-danger" role="alert">
- Your cant withdraw '.$settings->currency.' '.$amount.', Please try exactly your pending balance
-</div>';
-            }
-            elseif ($amount > $TheBalance->balance || $amount <$TheBalance->balance) {
-              echo'<div class="alert alert-danger" role="alert">
- Your cant withdraw '.$settings->currency.' '.$amount.', as your total balance is '.$settings->currency.' '.$TheBalance->balance.'. Please try exactly your pending balance
-</div>';
-            }else{
+            if($amount <= $TheBalance->balance){
                recomitmentWithdrawNow($amount, $user_id);
             }
-          
+            else{
+              echo'<div class="alert alert-danger" role="alert">
+  
+ Your cant withdraw '.$settings->currency.' '.$amount.', as your total balance is '.$settings->currency.' '.$TheBalance->balance.'. Please try exactly your pending balance
+</div>';
+            }
               } 
       ?>
     <!-- Main content -->
