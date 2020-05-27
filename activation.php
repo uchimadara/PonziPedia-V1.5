@@ -13,6 +13,14 @@
 require_once 'app/init.php';
 
 if (Auth::check()) redirect_to(App::url());
+if (isset($_POST['submit']) && csrf_filter()) {
+	
+	Register::reminder($_POST['email'], @$_POST['g-recaptcha-response']);
+				
+	if (Register::passes()) {
+		redirect_to('activation.php', array('activation_sent' => true));
+	}
+}
 ?>			
 
 <?php echo View::make('header')->render() ?>
