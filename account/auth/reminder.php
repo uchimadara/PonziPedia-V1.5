@@ -6,11 +6,11 @@ if (Auth::check()) redirect_to(App::url());
 
 if (isset($_POST['submit']) && csrf_filter()) {
 
-  Password::reminder($_POST['email'], @$_POST['g-recaptcha-response']);
-        
-  if (Password::passes()) {
-    redirect_to('reminder.php', array('reminder_sent' => true));
-  }
+	Password::reminder($_POST['email'], @$_POST['g-recaptcha-response']);
+				
+	if (Password::passes()) {
+		redirect_to('reminder.php', array('reminder_sent' => true));
+	}
 }
 ?>  
 
@@ -32,15 +32,12 @@ if (isset($_POST['submit']) && csrf_filter()) {
             <!-- Form Panel    -->
             <div class="col-lg-6 bg-white">
               
-      <?php if (Session::has('reminder_sent')): Session::deleteFlash(); ?>
-    
-    <div class="alert alert-success alert-dismissable" style="background-color: #dc3545; color: #fff;">
-                         <button aria-hidden="true" data-dismiss="alert" class="close" style="color: #fff;" type="button">×</button>
-                             <h3><?php _e('main.check_email') ?></h3><br<
-                             <?php _e('main.reminder_check_email') ?>
-                       </div>
-  <?php else: ?>
-  
+<?php if (Session::has('reminder_sent')): Session::deleteFlash(); ?>
+	<div class="alert alert-success alert-dismissable" style="background-color: #dc3545; color: #fff;">
+                         <button aria-hidden="true" data-dismiss="alert" class="close" style="color: #fff;" type="button">×</button>	<h3><?php _e('main.check_email') ?></h3>
+		<?php _e('main.reminder_check_email') ?>
+		</div>
+	<?php else: ?>
     
     <?php if (Password::fails()) {
       echo '<ul style="padding-left: 0px !important;">';
@@ -55,9 +52,10 @@ if (isset($_POST['submit']) && csrf_filter()) {
     
               <div class="form d-flex align-items-center">
                 <div class="content">
-                  <form method="post" class="form-validate">
+                  <form action="" method="POST" class="form-validate">
+                      <?php csrf_input() ?>
                     <div class="form-group">
-                      <input id="login-username" type="text" name="email" required data-msg="Please enter your email" class="input-material">
+                      <input name="email" id="reminder-email" type="text" required data-msg="Please enter your email" class="input-material">
                       <label for="login-username" class="label-material"><?php _e('main.enter_email') ?></label>
                     </div>
                    
