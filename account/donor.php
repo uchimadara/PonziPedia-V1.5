@@ -9,15 +9,19 @@
  if ($settings->activationFee ==1) {
 
     $ActivationFees = DB::table('activationFee')->where('sender_id', $user_id)->first();
-   if ($ActivationFees->payment_status =='pending' || $ActivationFees->payment_status =='waiting')
-  {
-    $ActivationUser = DB::table('activationReceiver')->where('id', 1)->first();
-    if ($ActivationUser->userid == $user_id) {}
-    else{
-       redirect_to(App::url('account/index.php'));
+    if($ActivationFees)
+    {
+        if ($ActivationFees->payment_status =='pending' || $ActivationFees->payment_status =='waiting')
+          {
+            $ActivationUser = DB::table('activationReceiver')->where('id', 1)->first();
+            if ($ActivationUser->userid == $user_id) {}
+            else{
+               redirect_to(App::url('account/index.php'));
+            }
+         
+          }
     }
- 
-  }
+  
 }
 
  ?>
