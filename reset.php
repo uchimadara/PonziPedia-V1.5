@@ -4,6 +4,17 @@ require_once 'app/init.php';
 if (Auth::check() || (empty($_GET['reminder']) && !Session::has('password_updated'))) {
 	redirect_to(App::url());
 }
+
+if (isset($_POST['submit']) && csrf_filter()) {
+	
+	Password::reset($_POST['pass1'], $_POST['pass2'], $_POST['reminder']);
+				
+	if (Password::passes()) {
+		redirect_to('reset.php', array('password_updated' => true));
+	}
+}
+
+
 ?>
 
 <?php echo View::make('header')->render() ?>
