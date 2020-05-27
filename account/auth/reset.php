@@ -59,6 +59,7 @@ if (isset($_POST['submit']) && csrf_filter()) {
               <div class="form d-flex align-items-center">
                 <div class="content">
                   <form method="post" class="form-validate">
+                    <?php csrf_input() ?>
                     <div class="form-group">
                       <input id="login-username" type="password" name="pass1" id="reset-pass1" class="input-material">
                       <label for="login-username" class="label-material"><?php _e('main.newpassword') ?></label>
