@@ -3,16 +3,16 @@
 require_once '../../app/init.php';
 
 if (Auth::check() || (empty($_GET['reminder']) && !Session::has('password_updated'))) {
-  redirect_to(App::url());
+	redirect_to(App::url());
 }
 
 if (isset($_POST['submit']) && csrf_filter()) {
-  
-  Password::reset($_POST['pass1'], $_POST['pass2'], $_POST['reminder']);
-        
-  if (Password::passes()) {
-    redirect_to('reset.php', array('password_updated' => true));
-  }
+	
+	Password::reset($_POST['pass1'], $_POST['pass2'], $_POST['reminder']);
+				
+	if (Password::passes()) {
+		redirect_to('reset.php', array('password_updated' => true));
+	}
 }
 ?>
 
@@ -57,9 +57,10 @@ if (isset($_POST['submit']) && csrf_filter()) {
     } ?> 
     
               <div class="form d-flex align-items-center">
+                 
                 <div class="content">
-                  <form method="post" class="form-validate">
-                    <?php csrf_input() ?>
+                  <form action="" class="form-validate" method="POST">
+                      <?php csrf_input() ?>
                     <div class="form-group">
                       <input id="login-username" type="password" name="pass1" id="reset-pass1" class="input-material">
                       <label for="login-username" class="label-material"><?php _e('main.newpassword') ?></label>
