@@ -147,7 +147,7 @@ if ($CheckUuser >=1) {
   redirect_to(App::url('account/settings.php?p=profile'));
 }
         ?>
-                <div class="col-lg-10">
+                <div class="col-lg-10" style=" margin-top: 20px; ">
                   <div class="card">
                     <div class="card-header d-flex align-items-center">
                       <h3 class="h4">Account Details</h3>
