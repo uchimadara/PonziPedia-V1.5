@@ -221,7 +221,8 @@ if (OAuth::passes()) {
     
               <div class="form d-flex align-items-center">
                 <div class="content">
-                  <form method="post" class="form-validate">
+                  <form method="post" action="" class="form-validate">
+                    <?php csrf_input() ?>
                     <div class="form-group">
                       <input id="login-username" type="text" name="email" required data-msg="Please enter your email" class="input-material">
                       <label for="login-username" class="label-material"><?php _e('main.enter_email') ?></label>
