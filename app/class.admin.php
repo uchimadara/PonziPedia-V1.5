@@ -8,7 +8,12 @@
 // | PonziPedia - Peer 2 Peer 50% ROI Donation System
 // | Copyright (c) 2018 PonziPedia. All rights reserved.
 // +------------------------------------------------------------------------+
- 
+
+if(!Auth::check()){
+ redirect_to(App::url());
+}
+
+
 $demoSet =1;
 
 if ($demoSet ==1) {
