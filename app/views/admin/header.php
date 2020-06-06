@@ -180,7 +180,7 @@ function page_restricted() {
 						<ul class="dropdown-menu">
 							<li><a href="account/account.php?edit=<?php echo Auth::user()->id ?>"><?php _e('admin.my_profile') ?></a></li>
 							<li><a href="account/settings.php"><?php _e('admin.settings') ?></a></li>
-							<li><a href="?logout"><?php _e('admin.logout') ?></a></li>
+							<li><a href="logout.php"><?php _e('admin.logout') ?></a></li>
 						</ul>
 					</li>
 
