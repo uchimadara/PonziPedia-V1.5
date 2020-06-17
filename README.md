@@ -20,7 +20,6 @@ PonziPedia is very easy to install, <a href="https://www.youtube.com/watch?v=s5q
         #To install </code></blockquote>
         <blockquote><code>git clone https://github.com/olakunlevpn/PonziPedia-V1.5.git</code></blockquote>
         <blockquote><code>cd PonziPedia-V1.5 </code></blockquote>
-        <blockquote><code>Composer update</code></blockquote>
         <blockquote><code>#Read the documentation to set up database and others its well explained</code></blockquote>
         <blockquote><code>Online demo <a href="https://ponzipedia.herokuapp.com/admin.php">Admin panel</a> Username: admin Password: admin</code></blockquote>
         <blockquote><code>Online demo <a href="https://ponzipedia.herokuapp.com/"> Signup to view</a></code></blockquote>
