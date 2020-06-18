@@ -178,13 +178,13 @@ CheckAvaverPicUpdate($user_id);
     
   }
 function random($length = 16) {
-	if (function_exists('openssl_random_pseudo_bytes')) {
-		$bytes = openssl_random_pseudo_bytes($length * 2);
-		if ($bytes === false) exit('Unable to generate random string.');
-		return substr(str_replace(array('/', '+', '='), '', base64_encode($bytes)), 0, $length);
-	}
-	$pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
+  if (function_exists('openssl_random_pseudo_bytes')) {
+    $bytes = openssl_random_pseudo_bytes($length * 2);
+    if ($bytes === false) exit('Unable to generate random string.');
+    return substr(str_replace(array('/', '+', '='), '', base64_encode($bytes)), 0, $length);
+  }
+  $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  return substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
 }
 $RandomNumbers = random(52);
 
@@ -199,10 +199,10 @@ $user_bank = DB::table('bank')->where('userid', $user_id)->first();
 function transactionView($user_id)
 {    
   $settings = DB::table('settings')->where('id', 1)->first();
-	$user_transaction = DB::table('transactions')->where('userid', $user_id)->take(20)->orderBy('id', 'DESC')->get();
-	if ($user_transaction >0) {
-		foreach ($user_transaction as $row) {
-			 echo '<tr>
+  $user_transaction = DB::table('transactions')->where('userid', $user_id)->take(20)->orderBy('id', 'DESC')->get();
+  if ($user_transaction >0) {
+    foreach ($user_transaction as $row) {
+       echo '<tr>
                               <th scope="row">'.$row->id.'</th>
                               <td>'.date("Y-m-d",strtotime($row->dateNow)).'</td>
                               <td>'.$settings->currency.' '.$row->amount.'</td>
@@ -210,11 +210,11 @@ function transactionView($user_id)
                               <td>'.$row->description.'</td>
                               <td>'.$row->status.'</td>
                             </tr>';
-		}
-	}
-		else {
-			echo "<h1>You dont have any transaction recorded";
-		}
+    }
+  }
+    else {
+      echo "<h1>You dont have any transaction recorded";
+    }
 
 }
 
@@ -222,68 +222,65 @@ function transactionView($user_id)
 //User Notification on the activities page
 function notificationView($user_id)
 {    
-	$user_notification = DB::table('notification')->where('userid', $user_id)->where('status', '=', 'verify')->take(10)->orderBy('id', 'DESC')->get();
-	if ($user_notification >0) {
-		foreach ($user_notification as $row) {
-			 echo '<li><a rel="nofollow" href="activity.php?read='.$row->id.'" class="dropdown-item"> 
+  $user_notification = DB::table('notification')->where('userid', $user_id)->where('status', '=', 'verify')->take(10)->orderBy('id', 'DESC')->get();
+  if ($user_notification >0) {
+    foreach ($user_notification as $row) {
+       echo '<li><a rel="nofollow" href="activity.php?read='.$row->id.'" class="dropdown-item"> 
                         <div class="notification">
                           <div class="notification-content"><i class="fa '.$row->faIcon.' bg-green"></i>'.substr($row->details, 0, 50).' </div>
                           <div class="notification-time"><small>'.date("Y-m-d",strtotime($row->date)).'</small></div>
                         </div></a></li>
                ';
-		}
-	}
-		else {
-			echo "<p>You dont have any notification</p>";
-		}
+    }
+  }
+    else {
+      echo "<p>You dont have any notification</p>";
+    }
 
 }
 //Notification count
 function notificationCount($user_id)
 {    
-	$user_notification = DB::table('notification')->where('userid', $user_id)->where('status', '=', 'verify')->count();
-	echo  $user_notification;
+  $user_notification = DB::table('notification')->where('userid', $user_id)->where('status', '=', 'verify')->count();
+  echo  $user_notification;
 }
 
 
 //User Notification page content view
 function TimelineView($user_id)
 {    
-	$user_notification = DB::table('notification')->where('userid', $user_id)->take(20)->orderBy('id', 'DESC')->get();
-	if ($user_notification >0) {
-		foreach ($user_notification as $row) {
-			
-			 echo '<li>
+  $user_notification = DB::table('notification')->where('userid', $user_id)->take(20)->orderBy('id', 'DESC')->get();
+  if ($user_notification >0) {
+    foreach ($user_notification as $row) {
+      
+       echo '<li>
                 <i class="fa '.$row->faIcon.' bg-orange" style="color: #fff;"></i>
-
                 <div class="timeline-item">
                   <span class="time"><i class="fa fa-clock-o" style="color: #f40000;"></i> '.date("Y-m-d H:i:s",strtotime($row->date)).'</span>
-
                   <h3 class="timeline-header">'.$row->details.'</h3>
-
                                   </div>
               </li>';
-		}
-	}
-		else {
-			echo "<h1>You dont have any notification</h1>";
-		}
+    }
+  }
+    else {
+      echo "<h1>You dont have any notification</h1>";
+    }
 
 }
 //Notification View and mark as read
 function Notificationread($user_id, $not_id)
 {
-	$update =DB::table('notification')->where('userid', $user_id)->where('id', '=', $not_id)->update(array('status' => 'read'));
+  $update =DB::table('notification')->where('userid', $user_id)->where('id', '=', $not_id)->update(array('status' => 'read'));
 }
 
 function packagesView()
 {
 $settings = DB::table('settings')->where('id', 1)->first();
-	$packages =DB::table('packages')->orderBy('id', 'DESC')->get();
+  $packages =DB::table('packages')->orderBy('id', 'DESC')->get();
 
-	foreach ($packages as $row) {
+  foreach ($packages as $row) {
     $settings = DB::table('settings')->where('id', 1)->first();
-		echo '  <div class="col-sm-4 col-md-4 text-center">
+    echo '  <div class="col-sm-4 col-md-4 text-center">
                     <div class="plan-cell">
                         <ul class="list-group green">
                             <li class="list-group-item plan-name mayPackages">'.$row->packname.'</li>
@@ -312,7 +309,7 @@ $settings = DB::table('settings')->where('id', 1)->first();
                         echo '</ul>
                     </div>
                 </div>';
-	}
+  }
 
 }
 
@@ -321,15 +318,15 @@ $settings = DB::table('settings')->where('id', 1)->first();
 function Requestmargin($user_id) 
 {
 $settings = DB::table('settings')->where('id', 1)->first();
-	$user_request = DB::table('requestMaching')->where('userid', $user_id)->take(10)->orderBy('id', 'DESC')->get();
-	foreach ($user_request as $row) {
+  $user_request = DB::table('requestMaching')->where('userid', $user_id)->take(10)->orderBy('id', 'DESC')->get();
+  foreach ($user_request as $row) {
       $user_row = DB::table('userdetails')->where('userid', $user_id)->first();
      
 
 
       $timeCreated = $row->timeReq;
       $timeNow = date('Y-m-d H:i:s');
-		echo ' <div class="col-lg-12">
+    echo ' <div class="col-lg-12">
                   <div class="work-amount card"><i class="fa fa-bolt" style="color: green; font-size: 35px;margin-top: -10px;"></i>
                     <div class="card-close">
                       <div class="dropdown">
@@ -352,7 +349,7 @@ $settings = DB::table('settings')->where('id', 1)->first();
                      echo '<center style="margin-left: -20px;margin-right: -20px;margin-bottom: -20px;border-radius: 0px !important;"><button class="btn btn-success btn-lg btn-block" style="border-radius: 0px !important;">Request Approved</button></center>';
                      }
                      elseif ($row->status =="pending") {
-                     	echo '<center style="margin-left: -20px;margin-right: -20px;margin-bottom: -20px;border-radius: 0px !important;"><button class="btn btn-danger btn-lg btn-block" style="border-radius: 0px !important;"><span id="ProvideHelp'.$row->id.'"></span></button></center>';
+                      echo '<center style="margin-left: -20px;margin-right: -20px;margin-bottom: -20px;border-radius: 0px !important;"><button class="btn btn-danger btn-lg btn-block" style="border-radius: 0px !important;"><span id="ProvideHelp'.$row->id.'"></span></button></center>';
                      }
  if($row->status =="pending"){
     $date=date_create($row->timeReq);
@@ -385,8 +382,8 @@ $settings = DB::table('settings')->where('id', 1)->first();
 <?php } echo '</div>
                   </div>
                 </div>';
-	}
-	
+  }
+  
 }
 
 
@@ -396,11 +393,11 @@ $settings = DB::table('settings')->where('id', 1)->first();
 function GetMargin($user_id)
 {
   $settings = DB::table('settings')->where('id', 1)->first();
-	$user_request = DB::table('marching')->where('sender_id', $user_id)->take(10)->orderBy('id', 'DESC')->get();
-	if ($user_request >0) {
-		foreach ($user_request as $row) {
-			$receiver = $row->receiver_id;
-			$packageID = $row->package_id;
+  $user_request = DB::table('marching')->where('sender_id', $user_id)->take(10)->orderBy('id', 'DESC')->get();
+  if ($user_request >0) {
+    foreach ($user_request as $row) {
+      $receiver = $row->receiver_id;
+      $packageID = $row->package_id;
       $timeCreated = $row->expiringTime;
 
      
@@ -415,12 +412,12 @@ function GetMargin($user_id)
         }
       }else{
      
-	        $user_sender = DB::table('userdetails')->where('userid', $user_id)->first();
-	        $user_receiver = DB::table('userdetails')->where('userid', $receiver)->first();
-	        $user_package = DB::table('packages')->where('id', $packageID)->first();
-	        $user = DB::table('users')->where('id', $receiver)->first();
-	
-	echo '<div class="col-md-12"> 
+          $user_sender = DB::table('userdetails')->where('userid', $user_id)->first();
+          $user_receiver = DB::table('userdetails')->where('userid', $receiver)->first();
+          $user_package = DB::table('packages')->where('id', $packageID)->first();
+          $user = DB::table('users')->where('id', $receiver)->first();
+  
+  echo '<div class="col-md-12"> 
                     <div class="work-amount card"><i class="fa fa-fire" style="color: red; font-size: 35px;margin-top: -10px;"></i>
                     <div class="card-close">
                       <div class="dropdown">
@@ -433,15 +430,15 @@ function GetMargin($user_id)
       if ($row->payment_status == "pending") {
           $date=date_create($row->expiringTime);
       $timenowss = date_format($date,"Y/m/d H:i:s");
-      	echo '  <div class="card-body text-center" style="background-color: #dc3545; color: #fff;">You are to make payment to the receiver below<br>Time left to complete payment<br>
+        echo '  <div class="card-body text-center" style="background-color: #dc3545; color: #fff;">You are to make payment to the receiver below<br>Time left to complete payment<br>
                      <p class="timerSet" id="PayoutPayment'.$row->id.'" style="font-size: 25px;"></p></div>';}
     elseif ($row->payment_status == "waiting") {
-    	echo '  <div class="card-body text-center" style="background-color: #dc3545; color: #fff;">Your payment is waiting for Approval<br>Please wait or call your downline for confirmation</div>';
+      echo '  <div class="card-body text-center" style="background-color: #dc3545; color: #fff;">Your payment is waiting for Approval<br>Please wait or call your downline for confirmation</div>';
     }
     elseif ($row->payment_status == "confirm") {
-    	echo '  <div class="card-body text-center" style="background-color: #218838; color: #fff;">Your payment is fully confirmed '.$settings->currency.''.$user_package->price.' confirmed paid to '.$user_receiver->accountname.'</div></div></div></div>';
+      echo '  <div class="card-body text-center" style="background-color: #218838; color: #fff;">Your payment is fully confirmed '.$settings->currency.''.$user_package->price.' confirmed paid to '.$user_receiver->accountname.'</div></div></div></div>';
     }else{
-    	echo '  <div class="card-body text-center" style="background-color: #dc3545; color: #fff;">Your request is not understood<br>Please try reload the page or contact for help</div>';
+      echo '  <div class="card-body text-center" style="background-color: #dc3545; color: #fff;">Your request is not understood<br>Please try reload the page or contact for help</div>';
     }
      
      if ($row->payment_status == "pending" || $row->payment_status == "waiting") {
@@ -530,7 +527,7 @@ function GetMargin($user_id)
              
               </div>';
          
-              	}
+                }
               }
 }
 }
@@ -539,7 +536,7 @@ function GetMargin($user_id)
 function NewMemberMatching($user_id)
 {
 
-		  echo '  <div class="col-md-6">
+      echo '  <div class="col-md-6">
                   <div class="card">
                    
                     <div class="card-header d-flex align-items-center">
@@ -547,11 +544,9 @@ function NewMemberMatching($user_id)
                     </div>
                     <div class="card-body text-center">
                       <a href="donor.php" class="btn btn-danger">Choose Package </a>
-
                   </div>
                 </div>
                </div>
-
                  <div class="col-md-6">
                   <div class="card">
                    
@@ -560,12 +555,11 @@ function NewMemberMatching($user_id)
                     </div>
                     <div class="card-body text-center">
                       <a href="getdonation.php" class="btn btn-primary">Get Donation </a>
-
                   </div>
                 </div>
                 </div>
                 ';
-	
+  
 }
 
 
@@ -637,7 +631,6 @@ if ($row->status =="pending") {
  echo '</div>
                   </div>
                 </div>
-
                 ';
   }
    
@@ -663,7 +656,6 @@ function ReceiverView($user_id){
                    
                      <div class="card-body">
                       <h3>Receive Payment</h3>
-
 ';
 
 
@@ -690,7 +682,6 @@ function ReceiverView($user_id){
   </ul>
   <br> 
   
-
  
   <form method="POST" action="">
                         <div class="form-group"> 
@@ -787,7 +778,6 @@ function MessageView($user_id){
     }
 
     echo ' <li class="'.$classcss.' clearfix" style="background-color: #fff;padding-left: 5px;padding-right: 5px;padding-top: 5px;border-radius: 5px;">
-
                             <div class="chat-body clearfix">
                                 <div class="header">
                                     <small class=" text-muted"><span class="glyphicon glyphicon-time"></span>'.$PostedTime.'</small>
@@ -918,7 +908,10 @@ $users = DB::table('requestHelp')->where('userid', $user_id)->count();
 $id = DB::table('requestMaching')->where('userid', $user_id)->sum('balance');
 $ids = DB::table('requestMaching')->where('userid', $user_id)->orderBy('id', 'DESC')->first();
 $CheckReqeust  = DB::table('requestMaching')->where('userid', $user_id)->count();
-if ($CheckReqeust >=1) {
+  
+
+
+    if ($CheckReqeust >=1) {
    echo '  <div class="col-lg-6">
                   <div class="card">
                     
@@ -941,30 +934,35 @@ if ($CheckReqeust >=1) {
                   </div>
                 </div>';
 }
-
 if ($CheckReqeust >=1) {
 
 if ($id == 0 || $id <0) {
 
-    
-              if ($users >= 1) { 
-    $user = DB::table('requestHelp')->where('userid', $user_id)->orderBy('id', 'DESC')->get();
+
+
+
+if ($users >= 1) { 
+
+$user = DB::table('requestHelp')->where('userid', $user_id)->orderBy('id', 'DESC')->get();
      echo '<div class="col-lg-6">';
     foreach ($user as $key) {
-         $timeNow = date('Y-m-d H:i:s');
+       $timeNow = date('Y-m-d H:i:s');
                 if ($key->timeReq >=  $timeNow) {
-                    $date=date_create($key->timeReq);
+
+ $date=date_create($key->timeReq);
                     $timenow = date_format($date,"Y/m/d H:i:s");
                   ?>
-                  
-                  <div class="col-lg-12">
+
+
+
+ <div class="col-lg-12">
                   <div class="card">
                     
                     <div class="card-header d-flex align-items-center">
                       <h3 class="h4">Get-Help #NIF<?php echo  $key->id * 4300; ?> <?php echo $settings->currency. '' .$key->amount; ?></h3>
                     </div>
                     <div class="card-body">
-                  <div class="card-body text-center" style="background-color: #dc3545; color: #fff;">Your withdrawal margin time estimated left <br> <p id="GetHelTimer<?php echo  $key->id; ?>";" style="font-size: 25px;"></p></div>
+                  <div class="card-body text-center" style="background-color: #dc3545; color: #fff;">Your withdrawal margin time estimated left <br> <p id="GetHelTimer<?php echo  $key->id; ?>" style="font-size: 25px;"></p></div>
            <script>
   jQuery(document).ready(function(){
     jQuery("#GetHelTimer<?php echo  $key->id; ?>").jCountdown({
@@ -990,17 +988,22 @@ if ($id == 0 || $id <0) {
     });
   });
 </script>
-                  <?
 
-                  echo '</div></div></div>';
+
+
+                  <?php 
+                    echo '</div></div></div>';
+
                 }
-    }
-            
- echo '</div>';
-}
-else {
+
+      }
+
+    echo '</div>';
+}else {
                  
 }
+  
+
 }
 else{
     echo '        <div class="col-lg-6">
@@ -1144,11 +1147,9 @@ function GuiderDetailsView($user_id)
                     </div>
                     <div class="card-body text-center" style="padding-bottom: 0px;padding-top: 10px;">
                       <center><h1>Parent Guider | <img src="'.asset_url('img/guider.png').'">'.$Henry->username.' | <img src="'.asset_url('img/phone.png').'"> '.$parents->phonenumber.'  </h1></center>
-
                 
                 </div>
                </div>
-
               ';
   }
   }
