@@ -14,7 +14,7 @@ if(!Auth::check()){
 }
 
 
-$demoSet =1;
+$demoSet =0;
 
 if ($demoSet ==1) {
 
