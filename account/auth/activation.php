@@ -58,6 +58,7 @@ if (isset($_POST['submit']) && csrf_filter()) {
               <div class="form d-flex align-items-center">
                 <div class="content">
                   <form method="post" class="form-validate">
+                    <?php csrf_input() ?>
                     <div class="form-group">
                       <input type="text" name="email" id="activation-email" value="<?php echo set_value('email') ?>" class="input-material">
                       <label for="login-username" class="label-material"><?php _e('main.enter_email') ?></label>
