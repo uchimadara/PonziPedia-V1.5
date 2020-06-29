@@ -18,8 +18,8 @@ PonziPedia is very easy to install, <a href="https://www.youtube.com/watch?v=s5q
 
 <br>
 
-#Contact 
-https://wa.link/8malnt
+# Contact 
+-- https://wa.link/8malnt
 
 <blockquote><code>
         #To install </code></blockquote>
