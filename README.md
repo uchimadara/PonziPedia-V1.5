@@ -16,6 +16,11 @@ PonziPedia is fast, secured, and it will be regularly updated.<br>
 PonziPedia is very easy to install, <a href="https://www.youtube.com/watch?v=s5qvuuOrhBk" rel="nofollow">Watch how to install PonziPedia</a><br> Online Documentation <a href="https://ponzipedia.herokuapp.com/documentation/">Installation Guides</a><br>
 <br>
 
+<br>
+
+#Contact 
+https://wa.link/8malnt
+
 <blockquote><code>
         #To install </code></blockquote>
         <blockquote><code>git clone https://github.com/olakunlevpn/PonziPedia-V1.5.git</code></blockquote>
