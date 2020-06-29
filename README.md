@@ -18,9 +18,6 @@ PonziPedia is very easy to install, <a href="https://www.youtube.com/watch?v=s5q
 
 <br>
 
-# Contact 
--- https://wa.link/8malnt
-
 <blockquote><code>
         #To install </code></blockquote>
         <blockquote><code>git clone https://github.com/olakunlevpn/PonziPedia-V1.5.git</code></blockquote>
@@ -116,6 +113,9 @@ Internationalization (optional)<br>
   Please send us your product presale query, after sales developer support request, customization request and any other queries to support: 
 </blockquote>
 <a href="https://facebook.com/olakunlevpn" rel="nofollow">Contact Me Here</a><br>
+# Contact 
+Whatsapp me !  https://wa.link/8malnt
+
 <h2 id="item-description__updates">Updates</h2>
  <h5 id="item-description__version-1-5-5-2-04-06-2018">
 <strong>Version 1.5 </strong> 05/02/2019</h5>
