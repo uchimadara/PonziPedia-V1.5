@@ -110,10 +110,10 @@ Internationalization (optional)<br>
 <br>
 <h2 id="item-description__native-applications-for-PonziPedia">Support Facility:</h2>
 <blockquote>
-  Please send us your product presale query, after sales developer support request, customization request and any other queries to support: 
+  Please send us your product presale query, after sales developer support request, customization request and any other queries to support: <a href="https://facebook.com/olakunlevpn" rel="nofollow">Contact Me Here</a>
 </blockquote>
-<a href="https://facebook.com/olakunlevpn" rel="nofollow">Contact Me Here</a><br>
-<blockquote> # Contact 
+<br>
+<blockquote> Contact 
 Whatsapp me !  https://wa.link/8malnt
 </blockquote>
 <h2 id="item-description__updates">Updates</h2>
