@@ -1,3 +1,6 @@
+# Update 2024
+* We will develop any script for you free of charge on a partnership as agreed. If Interested, send me a DM @uchimadarasan on Telegram or send an email to uchimadarasan@gmail.com
+
 [![Issues](https://img.shields.io/github/issues/olakunlevpn/PonziPedia-V1.5?style=flat-square)](https://github.com/olakunlevpn/PonziPedia-V1.5/issues)
 [![Stars](https://img.shields.io/github/stars/olakunlevpn/PonziPedia-V1.5)](https://github.com/olakunlevpn/PonziPedia-V1.5/stargazers)
 
